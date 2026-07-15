@@ -4,9 +4,11 @@
 
 .DESCRIPTION
     Step 4 ("Harness 실행") of the per-phase development process defined in PLAN.md.
-    Builds SampleOrderSystem.slnx for (Debug, Release) x (x86, x64), then runs
-    SampleOrderSystemTests.exe (Debug|x64 output) and reports its result.
-    Exits with a non-zero code if any build or the test run fails.
+    Builds SampleOrderSystem.slnx for (Debug, Release) x (x86, x64), runs
+    SampleOrderSystemTests.exe (Debug|x64 output), then runs the end-to-end
+    scenario in scenario_test.ps1 against the real built SampleOrderSystem.exe.
+    Exits with a non-zero code if any build, the unit tests, or the scenario
+    fails.
 #>
 
 $ErrorActionPreference = "Stop"
@@ -82,5 +84,12 @@ if ($testExitCode -ne 0) {
     exit 1
 }
 
-Write-Host "`n=== HARNESS RESULT: PASS (4/4 builds, tests green) ===" -ForegroundColor Green
+Write-Host "`n=== Running end-to-end scenario ===" -ForegroundColor Cyan
+& (Join-Path $PSScriptRoot "scenario_test.ps1")
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "`n=== HARNESS RESULT: FAIL (scenario test failed) ===" -ForegroundColor Red
+    exit 1
+}
+
+Write-Host "`n=== HARNESS RESULT: PASS (4/4 builds, unit tests green, scenario green) ===" -ForegroundColor Green
 exit 0
