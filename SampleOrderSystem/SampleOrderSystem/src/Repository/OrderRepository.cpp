@@ -2,6 +2,8 @@
 
 #include <algorithm>
 
+#include "Repository/NextIdCalculator.h"
+
 OrderRepository::OrderRepository(std::filesystem::path dataFile, const SampleRepository& sampleRepository)
     : store_(std::move(dataFile)), sampleRepository_(sampleRepository) {
     cache_ = store_.load();
@@ -9,11 +11,7 @@ OrderRepository::OrderRepository(std::filesystem::path dataFile, const SampleRep
 }
 
 void OrderRepository::recalcNextId() {
-    int maxId = 0;
-    for (const auto& o : cache_) {
-        maxId = std::max(maxId, o.orderId);
-    }
-    nextId_ = maxId + 1;
+    nextId_ = computeNextId(cache_, [](const Order& o) { return o.orderId; });
 }
 
 void OrderRepository::persist() const {

@@ -2,6 +2,8 @@
 
 #include <sstream>
 
+#include "Console/MenuRunner.h"
+
 namespace {
 
 std::string toString(StockLevel level) {
@@ -44,24 +46,9 @@ void MonitoringMenu::handleStockLevels() {
 }
 
 void MonitoringMenu::run() {
-    try {
-        while (true) {
-            io_.println("--- 모니터링 ---");
-            io_.println("1. 주문량 확인");
-            io_.println("2. 재고량 확인");
-            io_.println("0. 뒤로");
-            const int choice = io_.readInt("선택 > ");
-            if (choice == 1) {
-                handleOrderCounts();
-            } else if (choice == 2) {
-                handleStockLevels();
-            } else if (choice == 0) {
-                return;
-            } else {
-                io_.println("잘못된 선택입니다.");
-            }
-        }
-    } catch (const EofException&) {
-        return;
-    }
+    runMenu(io_, "모니터링",
+            {
+                {1, "주문량 확인", [this] { handleOrderCounts(); }},
+                {2, "재고량 확인", [this] { handleStockLevels(); }},
+            });
 }

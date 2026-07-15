@@ -3,6 +3,8 @@
 #include <sstream>
 #include <vector>
 
+#include "Console/MenuRunner.h"
+
 namespace {
 
 void printSampleList(ConsoleIO& io, const std::vector<Sample>& samples) {
@@ -48,27 +50,10 @@ void SampleMenu::handleSearch() {
 }
 
 void SampleMenu::run() {
-    try {
-        while (true) {
-            io_.println("--- 시료관리 ---");
-            io_.println("1. 시료 등록");
-            io_.println("2. 시료 조회");
-            io_.println("3. 시료 검색");
-            io_.println("0. 뒤로");
-            const int choice = io_.readInt("선택 > ");
-            if (choice == 1) {
-                handleRegister();
-            } else if (choice == 2) {
-                handleList();
-            } else if (choice == 3) {
-                handleSearch();
-            } else if (choice == 0) {
-                return;
-            } else {
-                io_.println("잘못된 선택입니다.");
-            }
-        }
-    } catch (const EofException&) {
-        return;
-    }
+    runMenu(io_, "시료관리",
+            {
+                {1, "시료 등록", [this] { handleRegister(); }},
+                {2, "시료 조회", [this] { handleList(); }},
+                {3, "시료 검색", [this] { handleSearch(); }},
+            });
 }

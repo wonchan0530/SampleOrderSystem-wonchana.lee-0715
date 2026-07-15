@@ -3,6 +3,8 @@
 #include <algorithm>
 #include <cctype>
 
+#include "Repository/NextIdCalculator.h"
+
 namespace {
 
 std::string toLower(std::string s) {
@@ -18,11 +20,7 @@ SampleRepository::SampleRepository(std::filesystem::path dataFile) : store_(std:
 }
 
 void SampleRepository::recalcNextId() {
-    int maxId = 0;
-    for (const auto& s : cache_) {
-        maxId = std::max(maxId, s.id);
-    }
-    nextId_ = maxId + 1;
+    nextId_ = computeNextId(cache_, [](const Sample& s) { return s.id; });
 }
 
 void SampleRepository::persist() const {

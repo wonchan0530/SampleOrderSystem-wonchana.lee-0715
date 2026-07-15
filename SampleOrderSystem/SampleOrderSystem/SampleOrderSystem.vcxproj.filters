@@ -77,6 +77,9 @@
     <ClInclude Include="include\Repository\RepositoryResult.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="include\Repository\NextIdCalculator.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
     <ClInclude Include="include\Repository\SampleRepository.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -96,6 +99,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="include\Console\ConsoleIO.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Console\MenuRunner.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="include\Console\SampleMenu.h">

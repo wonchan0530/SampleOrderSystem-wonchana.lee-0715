@@ -4,6 +4,8 @@
 #include <chrono>
 #include <sstream>
 
+#include "Console/MenuRunner.h"
+
 ProductionMenu::ProductionMenu(ProductionController& controller, ConsoleIO& io)
     : controller_(controller), io_(io) {}
 
@@ -49,24 +51,9 @@ void ProductionMenu::handleWaitingQueue() {
 }
 
 void ProductionMenu::run() {
-    try {
-        while (true) {
-            io_.println("--- 생산라인 ---");
-            io_.println("1. 생산 현황");
-            io_.println("2. 대기 주문 확인");
-            io_.println("0. 뒤로");
-            const int choice = io_.readInt("선택 > ");
-            if (choice == 1) {
-                handleCurrentStatus();
-            } else if (choice == 2) {
-                handleWaitingQueue();
-            } else if (choice == 0) {
-                return;
-            } else {
-                io_.println("잘못된 선택입니다.");
-            }
-        }
-    } catch (const EofException&) {
-        return;
-    }
+    runMenu(io_, "생산라인",
+            {
+                {1, "생산 현황", [this] { handleCurrentStatus(); }},
+                {2, "대기 주문 확인", [this] { handleWaitingQueue(); }},
+            });
 }

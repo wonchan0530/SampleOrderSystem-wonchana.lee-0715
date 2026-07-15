@@ -3,6 +3,8 @@
 #include <sstream>
 #include <vector>
 
+#include "Console/MenuRunner.h"
+
 namespace {
 
 void printOrderList(ConsoleIO& io, const std::vector<Order>& orders) {
@@ -48,30 +50,11 @@ void OrderMenu::handleReject() {
 }
 
 void OrderMenu::run() {
-    try {
-        while (true) {
-            io_.println("--- 주문(접수/승인/거절) ---");
-            io_.println("1. 시료 주문(접수)");
-            io_.println("2. 접수된 주문 목록");
-            io_.println("3. 주문 승인");
-            io_.println("4. 주문 거절");
-            io_.println("0. 뒤로");
-            const int choice = io_.readInt("선택 > ");
-            if (choice == 1) {
-                handlePlaceOrder();
-            } else if (choice == 2) {
-                handleListReserved();
-            } else if (choice == 3) {
-                handleApprove();
-            } else if (choice == 4) {
-                handleReject();
-            } else if (choice == 0) {
-                return;
-            } else {
-                io_.println("잘못된 선택입니다.");
-            }
-        }
-    } catch (const EofException&) {
-        return;
-    }
+    runMenu(io_, "주문(접수/승인/거절)",
+            {
+                {1, "시료 주문(접수)", [this] { handlePlaceOrder(); }},
+                {2, "접수된 주문 목록", [this] { handleListReserved(); }},
+                {3, "주문 승인", [this] { handleApprove(); }},
+                {4, "주문 거절", [this] { handleReject(); }},
+            });
 }
