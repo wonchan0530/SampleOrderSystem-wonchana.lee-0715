@@ -17,13 +17,12 @@
       <Configuration>Release</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>18.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{99bda8d3-189b-4c31-87b3-51538c1b40f1}</ProjectGuid>
-    <RootNamespace>SampleOrderSystem</RootNamespace>
+    <ProjectGuid>{4C6C6A66-4E36-4B39-9E4E-2F7B7E6C9C11}</ProjectGuid>
+    <RootNamespace>SampleOrderSystemTests</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -75,7 +74,7 @@
   <PropertyGroup Label="UserMacros" />
 
   <PropertyGroup>
-    <IncludePath>$(ProjectDir)include;$(ProjectDir)third_party;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)tests;$(ProjectDir)..\SampleOrderSystem\include;$(ProjectDir)..\SampleOrderSystem\third_party;$(IncludePath)</IncludePath>
   </PropertyGroup>
 
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -90,9 +89,6 @@
       <SubSystem>Console</SubSystem>
        <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
-    <Manifest>
-       <EnableSegmentHeap>true</EnableSegmentHeap>
-    </Manifest>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -108,9 +104,6 @@
       <SubSystem>Console</SubSystem>
        <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
-    <Manifest>
-       <EnableSegmentHeap>true</EnableSegmentHeap>
-    </Manifest>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -124,9 +117,6 @@
       <SubSystem>Console</SubSystem>
        <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
-    <Manifest>
-       <EnableSegmentHeap>true</EnableSegmentHeap>
-    </Manifest>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -142,13 +132,14 @@
       <SubSystem>Console</SubSystem>
        <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
-    <Manifest>
-       <EnableSegmentHeap>true</EnableSegmentHeap>
-    </Manifest>
   </ItemDefinitionGroup>
 
   <ItemGroup>
-    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="tests\test_main.cpp" />
+    <ClCompile Include="tests\SmokeTest.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="tests\testing.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
