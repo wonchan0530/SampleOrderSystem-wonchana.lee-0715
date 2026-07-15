@@ -33,6 +33,13 @@ public:
     RepositoryResult update(int orderId, const OrderUpdate& patch);
     RepositoryResult remove(int orderId);
 
+    // Legality of each transition is enforced here; the decision of *when*
+    // to call them (stock policy, wall-clock completion) belongs to
+    // Controller layers (OrderController / ProductionController).
+    RepositoryResult markConfirmed(int orderId);  // allowed from RESERVED or PRODUCING
+    RepositoryResult markProducing(int orderId);  // allowed from RESERVED
+    RepositoryResult markRejected(int orderId);   // allowed from RESERVED
+
 private:
     JsonFileStore<Order> store_;
     std::vector<Order> cache_;

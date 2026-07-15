@@ -83,6 +83,45 @@ RepositoryResult OrderRepository::update(int orderId, const OrderUpdate& patch) 
     return {true, "주문 정보가 수정되었습니다."};
 }
 
+RepositoryResult OrderRepository::markConfirmed(int orderId) {
+    auto it = std::find_if(cache_.begin(), cache_.end(), [orderId](const Order& o) { return o.orderId == orderId; });
+    if (it == cache_.end()) {
+        return {false, "존재하지 않는 주문 ID입니다."};
+    }
+    if (it->status != OrderStatus::RESERVED && it->status != OrderStatus::PRODUCING) {
+        return {false, "RESERVED 또는 PRODUCING 상태의 주문만 CONFIRMED로 전환할 수 있습니다."};
+    }
+    it->status = OrderStatus::CONFIRMED;
+    persist();
+    return {true, "주문이 CONFIRMED 상태로 전환되었습니다."};
+}
+
+RepositoryResult OrderRepository::markProducing(int orderId) {
+    auto it = std::find_if(cache_.begin(), cache_.end(), [orderId](const Order& o) { return o.orderId == orderId; });
+    if (it == cache_.end()) {
+        return {false, "존재하지 않는 주문 ID입니다."};
+    }
+    if (it->status != OrderStatus::RESERVED) {
+        return {false, "RESERVED 상태의 주문만 PRODUCING으로 전환할 수 있습니다."};
+    }
+    it->status = OrderStatus::PRODUCING;
+    persist();
+    return {true, "주문이 PRODUCING 상태로 전환되었습니다."};
+}
+
+RepositoryResult OrderRepository::markRejected(int orderId) {
+    auto it = std::find_if(cache_.begin(), cache_.end(), [orderId](const Order& o) { return o.orderId == orderId; });
+    if (it == cache_.end()) {
+        return {false, "존재하지 않는 주문 ID입니다."};
+    }
+    if (it->status != OrderStatus::RESERVED) {
+        return {false, "RESERVED 상태의 주문만 거절할 수 있습니다."};
+    }
+    it->status = OrderStatus::REJECTED;
+    persist();
+    return {true, "주문이 거절되었습니다."};
+}
+
 RepositoryResult OrderRepository::remove(int orderId) {
     auto it = std::find_if(cache_.begin(), cache_.end(), [orderId](const Order& o) { return o.orderId == orderId; });
     if (it == cache_.end()) {

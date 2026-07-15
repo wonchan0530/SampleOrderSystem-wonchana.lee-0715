@@ -158,17 +158,24 @@
     <ClCompile Include="src\Repository\OrderRepository.cpp" />
     <ClCompile Include="src\Console\ConsoleIO.cpp" />
     <ClCompile Include="src\Console\SampleMenu.cpp" />
+    <ClCompile Include="src\Console\OrderMenu.cpp" />
+    <ClCompile Include="src\Repository\ProductionQueueRepository.cpp" />
+    <ClCompile Include="src\Controller\OrderController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Model\Sample.h" />
     <ClInclude Include="include\Model\Order.h" />
+    <ClInclude Include="include\Model\ProductionJob.h" />
     <ClInclude Include="include\Storage\JsonFileStore.h" />
     <ClInclude Include="include\Storage\PathUtil.h" />
     <ClInclude Include="include\Repository\RepositoryResult.h" />
     <ClInclude Include="include\Repository\SampleRepository.h" />
     <ClInclude Include="include\Repository\OrderRepository.h" />
+    <ClInclude Include="include\Repository\ProductionQueueRepository.h" />
+    <ClInclude Include="include\Controller\OrderController.h" />
     <ClInclude Include="include\Console\ConsoleIO.h" />
     <ClInclude Include="include\Console\SampleMenu.h" />
+    <ClInclude Include="include\Console\OrderMenu.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
