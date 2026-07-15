@@ -47,6 +47,9 @@
     <ClCompile Include="..\SampleOrderSystem\src\Console\ConsoleIO.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="..\SampleOrderSystem\src\Console\ConsoleEncoding.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
     <ClCompile Include="..\SampleOrderSystem\src\Console\SampleMenu.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>

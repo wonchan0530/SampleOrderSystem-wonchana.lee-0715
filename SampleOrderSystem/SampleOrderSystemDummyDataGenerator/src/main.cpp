@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 
+#include "Console/ConsoleEncoding.h"
 #include "Controller/OrderController.h"
 #include "Repository/OrderRepository.h"
 #include "Repository/ProductionQueueRepository.h"
@@ -20,6 +21,8 @@ void printUsage() {
 }  // namespace
 
 int main(int argc, char** argv) {
+    ConsoleEncoding::configureUtf8();
+
     int sampleCount = 10;
     int orderCount = 30;
     unsigned int seed = std::random_device{}();

@@ -3,7 +3,7 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="SampleOrderSystem/SampleOrderSystem.vcxproj" />
-  <Project Path="SampleOrderSystemTests/SampleOrderSystemTests.vcxproj" />
-  <Project Path="SampleOrderSystemDummyDataGenerator/SampleOrderSystemDummyDataGenerator.vcxproj" />
+  <Project Path="SampleOrderSystem/SampleOrderSystem.vcxproj" Id="99bda8d3-189b-4c31-87b3-51538c1b40f1" />
+  <Project Path="SampleOrderSystemTests/SampleOrderSystemTests.vcxproj" Id="4c6c6a66-4e36-4b39-9e4e-2f7b7e6c9c11" />
+  <Project Path="SampleOrderSystemDummyDataGenerator/SampleOrderSystemDummyDataGenerator.vcxproj" Id="8a1d9c2e-6b3f-4a5e-9d7c-1f2e3a4b5c6d" />
 </Solution>

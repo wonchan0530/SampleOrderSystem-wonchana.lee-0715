@@ -157,6 +157,7 @@
     <ClCompile Include="src\Repository\SampleRepository.cpp" />
     <ClCompile Include="src\Repository\OrderRepository.cpp" />
     <ClCompile Include="src\Console\ConsoleIO.cpp" />
+    <ClCompile Include="src\Console\ConsoleEncoding.cpp" />
     <ClCompile Include="src\Console\SampleMenu.cpp" />
     <ClCompile Include="src\Console\OrderMenu.cpp" />
     <ClCompile Include="src\Console\ProductionMenu.cpp" />
@@ -182,6 +183,7 @@
     <ClInclude Include="include\Controller\ProductionController.h" />
     <ClInclude Include="include\Controller\MonitoringController.h" />
     <ClInclude Include="include\Console\ConsoleIO.h" />
+    <ClInclude Include="include\Console\ConsoleEncoding.h" />
     <ClInclude Include="include\Console\MenuRunner.h" />
     <ClInclude Include="include\Console\SampleMenu.h" />
     <ClInclude Include="include\Console\OrderMenu.h" />

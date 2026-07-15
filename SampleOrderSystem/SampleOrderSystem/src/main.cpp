@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <string>
 
+#include "Console/ConsoleEncoding.h"
 #include "Console/ConsoleIO.h"
 #include "Console/MonitoringMenu.h"
 #include "Console/OrderMenu.h"
@@ -16,6 +17,8 @@
 #include "Storage/PathUtil.h"
 
 int main() {
+    ConsoleEncoding::configureUtf8();
+
     ConsoleIO io;
     SampleRepository sampleRepo(PathUtil::dataDir() / "samples.json");
     OrderRepository orderRepo(PathUtil::dataDir() / "orders.json", sampleRepo);
