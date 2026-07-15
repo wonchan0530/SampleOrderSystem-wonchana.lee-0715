@@ -205,3 +205,35 @@ TEST(orderRepository_dataPersistsAcrossInstances) {
     std::filesystem::remove(samplePath);
     std::filesystem::remove(orderPath);
 }
+
+TEST(orderRepository_markReleasedOnlyAllowedFromConfirmed) {
+    const auto samplePath = testFile("order_repo_samples_release.json");
+    const auto orderPath = testFile("order_repo_orders_release.json");
+    std::filesystem::remove(samplePath);
+    std::filesystem::remove(orderPath);
+
+    SampleRepository sampleRepo(samplePath);
+    sampleRepo.create("WaferA", 10.0, 0.9);
+    const int sampleId = sampleRepo.findAll()[0].id;
+
+    OrderRepository orderRepo(orderPath, sampleRepo);
+    orderRepo.create(sampleId, "Cust1", 3);
+    const int orderId = orderRepo.findAll()[0].orderId;
+
+    // RESERVED 상태에서는 출고 거부
+    EXPECT_TRUE(!orderRepo.markReleased(orderId).success);
+
+    orderRepo.markConfirmed(orderId);
+    const auto releaseResult = orderRepo.markReleased(orderId);
+    EXPECT_TRUE(releaseResult.success);
+    EXPECT_TRUE(orderRepo.findById(orderId)->status == OrderStatus::RELEASE);
+
+    // 이미 RELEASE된 주문 재출고 거부
+    EXPECT_TRUE(!orderRepo.markReleased(orderId).success);
+
+    // 존재하지 않는 주문 ID
+    EXPECT_TRUE(!orderRepo.markReleased(9999).success);
+
+    std::filesystem::remove(samplePath);
+    std::filesystem::remove(orderPath);
+}

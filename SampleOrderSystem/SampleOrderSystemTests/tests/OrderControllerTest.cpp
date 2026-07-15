@@ -203,3 +203,66 @@ TEST(orderController_approveAndRejectRejectUnknownOrderId) {
     std::filesystem::remove(orderPath);
     std::filesystem::remove(queuePath);
 }
+
+TEST(orderController_releaseTransitionsConfirmedOrderToRelease) {
+    const auto samplePath = testFile("order_controller_samples_release.json");
+    const auto orderPath = testFile("order_controller_orders_release.json");
+    const auto queuePath = testFile("order_controller_queue_release.json");
+    std::filesystem::remove(samplePath);
+    std::filesystem::remove(orderPath);
+    std::filesystem::remove(queuePath);
+
+    SampleRepository sampleRepo(samplePath);
+    sampleRepo.create("WaferA", 10.0, 0.9);
+    const int sampleId = sampleRepo.findAll()[0].id;
+    sampleRepo.adjustStock(sampleId, 20);
+
+    OrderRepository orderRepo(orderPath, sampleRepo);
+    ProductionQueueRepository queue(queuePath);
+    OrderController controller(orderRepo, sampleRepo, queue);
+
+    orderRepo.create(sampleId, "Acme", 5);
+    const int orderId = orderRepo.findAll()[0].orderId;
+    controller.approve(orderId);  // stock sufficient -> CONFIRMED
+
+    EXPECT_EQ(controller.listConfirmed().size(), static_cast<size_t>(1));
+
+    const auto releaseResult = controller.release(orderId);
+    EXPECT_TRUE(releaseResult.success);
+    EXPECT_TRUE(orderRepo.findById(orderId)->status == OrderStatus::RELEASE);
+    EXPECT_TRUE(controller.listConfirmed().empty());
+
+    // Already released -> rejected
+    EXPECT_TRUE(!controller.release(orderId).success);
+
+    std::filesystem::remove(samplePath);
+    std::filesystem::remove(orderPath);
+    std::filesystem::remove(queuePath);
+}
+
+TEST(orderController_releaseRejectsOrderNotYetConfirmed) {
+    const auto samplePath = testFile("order_controller_samples_release_early.json");
+    const auto orderPath = testFile("order_controller_orders_release_early.json");
+    const auto queuePath = testFile("order_controller_queue_release_early.json");
+    std::filesystem::remove(samplePath);
+    std::filesystem::remove(orderPath);
+    std::filesystem::remove(queuePath);
+
+    SampleRepository sampleRepo(samplePath);
+    sampleRepo.create("WaferA", 10.0, 0.9);
+    const int sampleId = sampleRepo.findAll()[0].id;
+
+    OrderRepository orderRepo(orderPath, sampleRepo);
+    ProductionQueueRepository queue(queuePath);
+    OrderController controller(orderRepo, sampleRepo, queue);
+
+    orderRepo.create(sampleId, "Acme", 5);
+    const int orderId = orderRepo.findAll()[0].orderId;
+
+    // Still RESERVED -> release must be rejected
+    EXPECT_TRUE(!controller.release(orderId).success);
+
+    std::filesystem::remove(samplePath);
+    std::filesystem::remove(orderPath);
+    std::filesystem::remove(queuePath);
+}

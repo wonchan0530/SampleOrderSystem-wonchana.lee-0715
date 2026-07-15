@@ -152,6 +152,7 @@
     <ClCompile Include="tests\OrderMenuTest.cpp" />
     <ClCompile Include="tests\ProductionControllerTest.cpp" />
     <ClCompile Include="tests\ProductionMenuTest.cpp" />
+    <ClCompile Include="tests\ShippingMenuTest.cpp" />
     <ClCompile Include="..\SampleOrderSystem\src\Storage\PathUtil.cpp" />
     <ClCompile Include="..\SampleOrderSystem\src\Repository\SampleRepository.cpp" />
     <ClCompile Include="..\SampleOrderSystem\src\Repository\OrderRepository.cpp" />
@@ -162,6 +163,7 @@
     <ClCompile Include="..\SampleOrderSystem\src\Console\SampleMenu.cpp" />
     <ClCompile Include="..\SampleOrderSystem\src\Console\OrderMenu.cpp" />
     <ClCompile Include="..\SampleOrderSystem\src\Console\ProductionMenu.cpp" />
+    <ClCompile Include="..\SampleOrderSystem\src\Console\ShippingMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tests\testing.h" />
