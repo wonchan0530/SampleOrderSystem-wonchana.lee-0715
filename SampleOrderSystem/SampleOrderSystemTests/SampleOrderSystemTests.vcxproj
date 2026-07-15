@@ -84,6 +84,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -99,6 +100,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -112,6 +114,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -127,6 +130,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -137,6 +141,13 @@
   <ItemGroup>
     <ClCompile Include="tests\test_main.cpp" />
     <ClCompile Include="tests\SmokeTest.cpp" />
+    <ClCompile Include="tests\JsonFileStoreTest.cpp" />
+    <ClCompile Include="tests\PathUtilTest.cpp" />
+    <ClCompile Include="tests\SampleRepositoryTest.cpp" />
+    <ClCompile Include="tests\OrderRepositoryTest.cpp" />
+    <ClCompile Include="..\SampleOrderSystem\src\Storage\PathUtil.cpp" />
+    <ClCompile Include="..\SampleOrderSystem\src\Repository\SampleRepository.cpp" />
+    <ClCompile Include="..\SampleOrderSystem\src\Repository\OrderRepository.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tests\testing.h" />

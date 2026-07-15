@@ -69,8 +69,13 @@ if (-not (Test-Path $testExe)) {
     exit 1
 }
 
-& $testExe
-$testExitCode = $LASTEXITCODE
+Push-Location (Split-Path -Parent $testExe)
+try {
+    & $testExe
+    $testExitCode = $LASTEXITCODE
+} finally {
+    Pop-Location
+}
 
 if ($testExitCode -ne 0) {
     Write-Host "`n=== HARNESS RESULT: FAIL (tests failed) ===" -ForegroundColor Red
