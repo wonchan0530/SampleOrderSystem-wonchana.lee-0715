@@ -4,7 +4,22 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 저장소 현재 상태
 
-이 저장소는 아직 코드가 작성되지 않은 초기 상태다. `docs/[CRA_AI] Day3_개인과제_반도체시료관리.pdf` (4~26페이지)가 유일한 산출물이며, 이 프로젝트의 요구사항 명세(PRD) 역할을 한다. 빌드/린트/테스트 명령은 아직 존재하지 않는다 — 프레임워크와 언어 선택은 앞으로 이 저장소에서 결정해야 할 사항이다. 언어/프레임워크를 선택하면 이 섹션과 아래 "빌드/실행/테스트" 섹션을 실제 명령으로 갱신할 것.
+이 저장소는 아직 코드가 작성되지 않은 초기 상태다. `docs/[CRA_AI] Day3_개인과제_반도체시료관리.pdf` (4~26페이지)가 요구사항 명세(PRD) 역할을 하며, 이를 정리한 `PRD.md`가 루트에 있다. 소스 코드는 아직 없고, `SampleOrderSystem/` 아래 Visual Studio 솔루션/프로젝트 스캐폴드만 존재한다.
+
+## 빌드 환경 (MSBuild / Visual Studio)
+
+- **빌드 시스템은 MSBuild/Visual Studio만 사용한다. CMake 등 크로스플랫폼 빌드 시스템은 도입하지 않는다.**
+- 솔루션: `SampleOrderSystem/SampleOrderSystem.slnx`, 프로젝트: `SampleOrderSystem/SampleOrderSystem/SampleOrderSystem.vcxproj`
+- 언어/표준: C++20 (`LanguageStandard=stdcpp20`), 콘솔 애플리케이션(`SubSystem=Console`)
+- `PlatformToolset=v145` — 이 툴셋은 **Visual Studio 2026 (버전 18, `C:\Program Files\Microsoft Visual Studio\18\Community`)** 에서만 제공된다. 이 머신에는 VS 2022(17.13, 툴셋 v143)도 설치되어 있지만 v145가 없어 이 프로젝트를 열 수 없으므로, 빌드/실행은 반드시 **VS 2026(18) 인스턴스**를 사용할 것.
+- 구성/플랫폼 조합: `Debug|Win32`, `Release|Win32`, `Debug|x64`, `Release|x64`
+- CLI 빌드 명령 (PowerShell):
+  ```powershell
+  & "C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Current\Bin\MSBuild.exe" `
+    "SampleOrderSystem\SampleOrderSystem.slnx" /p:Configuration=Debug /p:Platform=x64
+  ```
+- VS 설치 정보 확인: `vswhere.exe` 는 `C:\Program Files (x86)\Microsoft Visual Studio\Installer\vswhere.exe` 에 있음
+- `.vs/`, `x64/`, `x86/`, `Debug/`, `Release/`, `*.user` 등 IDE/빌드 산출물은 `.gitignore`로 제외되어 있으며 커밋 대상이 아니다.
 
 ## 프로젝트 개요
 
