@@ -38,6 +38,18 @@
     <ClCompile Include="..\SampleOrderSystem\src\Repository\OrderRepository.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="tests\ConsoleIOTest.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\SampleMenuTest.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SampleOrderSystem\src\Console\ConsoleIO.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SampleOrderSystem\src\Console\SampleMenu.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tests\testing.h">
