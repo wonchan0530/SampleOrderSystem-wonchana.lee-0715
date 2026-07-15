@@ -4,16 +4,20 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 저장소 현재 상태
 
-이 저장소는 아직 코드가 작성되지 않은 초기 상태다. `docs/[CRA_AI] Day3_개인과제_반도체시료관리.pdf` (4~26페이지)가 요구사항 명세(PRD) 역할을 하며, 이를 정리한 `PRD.md`가 루트에 있다. 소스 코드는 아직 없고, `SampleOrderSystem/` 아래 Visual Studio 솔루션/프로젝트 스캐폴드만 존재한다.
+`docs/[CRA_AI] Day3_개인과제_반도체시료관리.pdf` (4~26페이지)가 요구사항 명세(PRD) 역할을 하며, 이를 정리한 `PRD.md`가 루트에 있다. 개발은 `PLAN.md`에 정의된 Phase 단위로 진행 중이며, 각 Phase의 설계 문서는 `design/phaseN-*.md`에 있다. Phase 0(프로젝트 기반 준비: 폴더 구조, JSON vendoring, 테스트 프로젝트, Harness 스크립트)까지 완료된 상태다.
 
 ## 빌드 환경 (MSBuild / Visual Studio)
 
 - **빌드 시스템은 MSBuild/Visual Studio만 사용한다. CMake 등 크로스플랫폼 빌드 시스템은 도입하지 않는다.**
-- 솔루션: `SampleOrderSystem/SampleOrderSystem.slnx`, 프로젝트: `SampleOrderSystem/SampleOrderSystem/SampleOrderSystem.vcxproj`
+- 솔루션: `SampleOrderSystem/SampleOrderSystem.slnx`, 프로젝트 2개:
+  - `SampleOrderSystem/SampleOrderSystem/SampleOrderSystem.vcxproj` — 앱 본체(`src/main.cpp`가 Composition Root)
+  - `SampleOrderSystem/SampleOrderSystemTests/SampleOrderSystemTests.vcxproj` — 테스트 전용(자체 `tests/testing.h` 하네스, 외부 프레임워크 없음)
+- 서드파티: `SampleOrderSystem/SampleOrderSystem/third_party/nlohmann/json.hpp` (단일 헤더 vendoring, 네트워크 의존 없음 — Data_Persistence POC와 동일 버전 3.11.3)
 - 언어/표준: C++20 (`LanguageStandard=stdcpp20`), 콘솔 애플리케이션(`SubSystem=Console`)
 - `PlatformToolset=v145` — 이 툴셋은 **Visual Studio 2026 (버전 18, `C:\Program Files\Microsoft Visual Studio\18\Community`)** 에서만 제공된다. 이 머신에는 VS 2022(17.13, 툴셋 v143)도 설치되어 있지만 v145가 없어 이 프로젝트를 열 수 없으므로, 빌드/실행은 반드시 **VS 2026(18) 인스턴스**를 사용할 것.
-- 구성/플랫폼 조합: `Debug|Win32`, `Release|Win32`, `Debug|x64`, `Release|x64`
-- CLI 빌드 명령 (PowerShell):
+- 구성/플랫폼 조합: `Debug|Win32`, `Release|Win32`, `Debug|x64`, `Release|x64` (두 프로젝트 동일)
+- **Harness**: `scripts/verify.ps1` — 4개 구성 빌드 + `SampleOrderSystemTests.exe`(Debug|x64) 실행을 한 번에 검증. `powershell -ExecutionPolicy Bypass -File scripts\verify.ps1`로 실행. 매 Phase의 "4. Harness 실행" 단계에서 사용.
+- CLI 빌드 명령 (PowerShell, 단일 구성만 빌드할 때):
   ```powershell
   & "C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Current\Bin\MSBuild.exe" `
     "SampleOrderSystem\SampleOrderSystem.slnx" /p:Configuration=Debug /p:Platform=x64
