@@ -5,4 +5,5 @@
   </Configurations>
   <Project Path="SampleOrderSystem/SampleOrderSystem.vcxproj" />
   <Project Path="SampleOrderSystemTests/SampleOrderSystemTests.vcxproj" />
+  <Project Path="SampleOrderSystemDummyDataGenerator/SampleOrderSystemDummyDataGenerator.vcxproj" />
 </Solution>
