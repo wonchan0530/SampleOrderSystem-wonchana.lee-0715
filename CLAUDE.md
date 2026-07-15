@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 저장소 현재 상태
 
-`docs/[CRA_AI] Day3_개인과제_반도체시료관리.pdf` (4~26페이지)가 요구사항 명세(PRD) 역할을 하며, 이를 정리한 `PRD.md`가 루트에 있다. 개발은 `PLAN.md`에 정의된 Phase 단위로 진행 중이며, 각 Phase의 설계 문서는 `design/phaseN-*.md`에 있다. Phase 0(프로젝트 기반 준비: 폴더 구조, JSON vendoring, 테스트 프로젝트, Harness 스크립트)까지 완료된 상태다.
+`docs/[CRA_AI] Day3_개인과제_반도체시료관리.pdf` (4~26페이지)가 요구사항 명세(PRD) 역할을 하며, 이를 정리한 `PRD.md`가 루트에 있다. 개발은 `PLAN.md`에 정의된 Phase 단위로 진행 중이며, 각 Phase의 설계 문서는 `design/phaseN-*.md`에 있다. Phase 0(프로젝트 기반 준비)과 Phase 1(Model/Storage/Repository 계층: `Sample`/`Order`, `JsonFileStore<T>`, `PathUtil`, `SampleRepository`/`OrderRepository`)까지 완료된 상태다. 콘솔 메뉴/Controller 연결은 아직 없다(Phase 2부터).
 
 ## 빌드 환경 (MSBuild / Visual Studio)
 
