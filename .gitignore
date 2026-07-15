@@ -1,0 +1,22 @@
+# Visual Studio / MSBuild
+.vs/
+*.user
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Bb]in/
+[Oo]bj/
+*.ilk
+*.pdb
+*.idb
+*.log
+*.tlog
+*.obj
+*.exe
+*.ipch
+*.aps
+*.sdf
+*.opensdf
+*.VC.db
+*.VC.VC.opendb
