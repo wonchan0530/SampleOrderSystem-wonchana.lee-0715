@@ -161,9 +161,11 @@
     <ClCompile Include="src\Console\OrderMenu.cpp" />
     <ClCompile Include="src\Console\ProductionMenu.cpp" />
     <ClCompile Include="src\Console\ShippingMenu.cpp" />
+    <ClCompile Include="src\Console\MonitoringMenu.cpp" />
     <ClCompile Include="src\Repository\ProductionQueueRepository.cpp" />
     <ClCompile Include="src\Controller\OrderController.cpp" />
     <ClCompile Include="src\Controller\ProductionController.cpp" />
+    <ClCompile Include="src\Controller\MonitoringController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Model\Sample.h" />
@@ -177,11 +179,13 @@
     <ClInclude Include="include\Repository\ProductionQueueRepository.h" />
     <ClInclude Include="include\Controller\OrderController.h" />
     <ClInclude Include="include\Controller\ProductionController.h" />
+    <ClInclude Include="include\Controller\MonitoringController.h" />
     <ClInclude Include="include\Console\ConsoleIO.h" />
     <ClInclude Include="include\Console\SampleMenu.h" />
     <ClInclude Include="include\Console\OrderMenu.h" />
     <ClInclude Include="include\Console\ProductionMenu.h" />
     <ClInclude Include="include\Console\ShippingMenu.h" />
+    <ClInclude Include="include\Console\MonitoringMenu.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
