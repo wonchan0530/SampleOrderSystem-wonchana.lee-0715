@@ -68,6 +68,18 @@
     <ClCompile Include="..\SampleOrderSystem\src\Console\OrderMenu.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="tests\ProductionControllerTest.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\ProductionMenuTest.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SampleOrderSystem\src\Controller\ProductionController.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SampleOrderSystem\src\Console\ProductionMenu.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tests\testing.h">

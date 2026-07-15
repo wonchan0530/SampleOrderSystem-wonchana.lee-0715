@@ -150,14 +150,18 @@
     <ClCompile Include="tests\ProductionQueueRepositoryTest.cpp" />
     <ClCompile Include="tests\OrderControllerTest.cpp" />
     <ClCompile Include="tests\OrderMenuTest.cpp" />
+    <ClCompile Include="tests\ProductionControllerTest.cpp" />
+    <ClCompile Include="tests\ProductionMenuTest.cpp" />
     <ClCompile Include="..\SampleOrderSystem\src\Storage\PathUtil.cpp" />
     <ClCompile Include="..\SampleOrderSystem\src\Repository\SampleRepository.cpp" />
     <ClCompile Include="..\SampleOrderSystem\src\Repository\OrderRepository.cpp" />
     <ClCompile Include="..\SampleOrderSystem\src\Repository\ProductionQueueRepository.cpp" />
     <ClCompile Include="..\SampleOrderSystem\src\Controller\OrderController.cpp" />
+    <ClCompile Include="..\SampleOrderSystem\src\Controller\ProductionController.cpp" />
     <ClCompile Include="..\SampleOrderSystem\src\Console\ConsoleIO.cpp" />
     <ClCompile Include="..\SampleOrderSystem\src\Console\SampleMenu.cpp" />
     <ClCompile Include="..\SampleOrderSystem\src\Console\OrderMenu.cpp" />
+    <ClCompile Include="..\SampleOrderSystem\src\Console\ProductionMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tests\testing.h" />
