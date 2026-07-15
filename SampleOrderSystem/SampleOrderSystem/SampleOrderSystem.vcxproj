@@ -156,6 +156,8 @@
     <ClCompile Include="src\Storage\PathUtil.cpp" />
     <ClCompile Include="src\Repository\SampleRepository.cpp" />
     <ClCompile Include="src\Repository\OrderRepository.cpp" />
+    <ClCompile Include="src\Console\ConsoleIO.cpp" />
+    <ClCompile Include="src\Console\SampleMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Model\Sample.h" />
@@ -165,6 +167,8 @@
     <ClInclude Include="include\Repository\RepositoryResult.h" />
     <ClInclude Include="include\Repository\SampleRepository.h" />
     <ClInclude Include="include\Repository\OrderRepository.h" />
+    <ClInclude Include="include\Console\ConsoleIO.h" />
+    <ClInclude Include="include\Console\SampleMenu.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
