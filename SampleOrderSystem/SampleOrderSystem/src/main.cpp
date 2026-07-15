@@ -2,6 +2,7 @@
 #include "Console/OrderMenu.h"
 #include "Console/ProductionMenu.h"
 #include "Console/SampleMenu.h"
+#include "Console/ShippingMenu.h"
 #include "Controller/OrderController.h"
 #include "Controller/ProductionController.h"
 #include "Repository/OrderRepository.h"
@@ -20,6 +21,7 @@ int main() {
     SampleMenu sampleMenu(sampleRepo, io);
     OrderMenu orderMenu(orderController, io);
     ProductionMenu productionMenu(productionController, io);
+    ShippingMenu shippingMenu(orderController, io);
 
     while (true) {
         // Catches up any production that finished while a menu wasn't open
@@ -30,6 +32,7 @@ int main() {
         io.println("1. 시료관리");
         io.println("2. 주문(접수/승인/거절)");
         io.println("3. 생산라인");
+        io.println("4. 출고처리");
         io.println("0. 종료");
         try {
             const int choice = io.readInt("선택 > ");
@@ -39,6 +42,8 @@ int main() {
                 orderMenu.run();
             } else if (choice == 3) {
                 productionMenu.run();
+            } else if (choice == 4) {
+                shippingMenu.run();
             } else if (choice == 0) {
                 break;
             } else {

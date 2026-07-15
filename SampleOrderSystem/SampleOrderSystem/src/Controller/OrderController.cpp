@@ -10,14 +10,26 @@ RepositoryResult OrderController::placeOrder(int sampleId, const std::string& cu
     return orderRepo_.create(sampleId, customerName, quantity);
 }
 
-std::vector<Order> OrderController::listReserved() const {
+namespace {
+
+std::vector<Order> filterByStatus(const std::vector<Order>& orders, OrderStatus status) {
     std::vector<Order> result;
-    for (const auto& order : orderRepo_.findAll()) {
-        if (order.status == OrderStatus::RESERVED) {
+    for (const auto& order : orders) {
+        if (order.status == status) {
             result.push_back(order);
         }
     }
     return result;
+}
+
+}  // namespace
+
+std::vector<Order> OrderController::listReserved() const {
+    return filterByStatus(orderRepo_.findAll(), OrderStatus::RESERVED);
+}
+
+std::vector<Order> OrderController::listConfirmed() const {
+    return filterByStatus(orderRepo_.findAll(), OrderStatus::CONFIRMED);
 }
 
 RepositoryResult OrderController::approve(int orderId, std::chrono::system_clock::time_point now) {
@@ -55,4 +67,8 @@ RepositoryResult OrderController::approve(int orderId, std::chrono::system_clock
 
 RepositoryResult OrderController::reject(int orderId) {
     return orderRepo_.markRejected(orderId);
+}
+
+RepositoryResult OrderController::release(int orderId) {
+    return orderRepo_.markReleased(orderId);
 }

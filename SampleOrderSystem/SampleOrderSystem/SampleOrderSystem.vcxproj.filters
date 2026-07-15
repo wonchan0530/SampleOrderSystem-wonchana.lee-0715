@@ -48,6 +48,9 @@
     <ClCompile Include="src\Controller\ProductionController.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="src\Console\ShippingMenu.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Model\Sample.h">
@@ -93,6 +96,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="include\Console\ProductionMenu.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Console\ShippingMenu.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

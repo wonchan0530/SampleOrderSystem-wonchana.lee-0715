@@ -122,6 +122,19 @@ RepositoryResult OrderRepository::markRejected(int orderId) {
     return {true, "주문이 거절되었습니다."};
 }
 
+RepositoryResult OrderRepository::markReleased(int orderId) {
+    auto it = std::find_if(cache_.begin(), cache_.end(), [orderId](const Order& o) { return o.orderId == orderId; });
+    if (it == cache_.end()) {
+        return {false, "존재하지 않는 주문 ID입니다."};
+    }
+    if (it->status != OrderStatus::CONFIRMED) {
+        return {false, "CONFIRMED 상태의 주문만 출고 처리할 수 있습니다."};
+    }
+    it->status = OrderStatus::RELEASE;
+    persist();
+    return {true, "주문이 출고 처리되었습니다."};
+}
+
 RepositoryResult OrderRepository::remove(int orderId) {
     auto it = std::find_if(cache_.begin(), cache_.end(), [orderId](const Order& o) { return o.orderId == orderId; });
     if (it == cache_.end()) {

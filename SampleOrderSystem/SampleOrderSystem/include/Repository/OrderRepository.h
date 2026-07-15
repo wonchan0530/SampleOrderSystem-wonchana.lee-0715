@@ -39,6 +39,7 @@ public:
     RepositoryResult markConfirmed(int orderId);  // allowed from RESERVED or PRODUCING
     RepositoryResult markProducing(int orderId);  // allowed from RESERVED
     RepositoryResult markRejected(int orderId);   // allowed from RESERVED
+    RepositoryResult markReleased(int orderId);   // allowed from CONFIRMED
 
 private:
     JsonFileStore<Order> store_;

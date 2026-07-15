@@ -160,6 +160,7 @@
     <ClCompile Include="src\Console\SampleMenu.cpp" />
     <ClCompile Include="src\Console\OrderMenu.cpp" />
     <ClCompile Include="src\Console\ProductionMenu.cpp" />
+    <ClCompile Include="src\Console\ShippingMenu.cpp" />
     <ClCompile Include="src\Repository\ProductionQueueRepository.cpp" />
     <ClCompile Include="src\Controller\OrderController.cpp" />
     <ClCompile Include="src\Controller\ProductionController.cpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="include\Console\SampleMenu.h" />
     <ClInclude Include="include\Console\OrderMenu.h" />
     <ClInclude Include="include\Console\ProductionMenu.h" />
+    <ClInclude Include="include\Console\ShippingMenu.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

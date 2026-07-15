@@ -20,10 +20,12 @@ public:
 
     RepositoryResult placeOrder(int sampleId, const std::string& customerName, int quantity);
     std::vector<Order> listReserved() const;
+    std::vector<Order> listConfirmed() const;
 
     RepositoryResult approve(int orderId,
                              std::chrono::system_clock::time_point now = std::chrono::system_clock::now());
     RepositoryResult reject(int orderId);
+    RepositoryResult release(int orderId);
 
 private:
     OrderRepository& orderRepo_;
