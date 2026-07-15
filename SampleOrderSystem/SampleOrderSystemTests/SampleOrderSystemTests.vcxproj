@@ -155,6 +155,8 @@
     <ClCompile Include="tests\ShippingMenuTest.cpp" />
     <ClCompile Include="tests\MonitoringControllerTest.cpp" />
     <ClCompile Include="tests\MonitoringMenuTest.cpp" />
+    <ClCompile Include="tests\DummyDataSeedGeneratorTest.cpp" />
+    <ClCompile Include="tests\DummyDataGeneratorE2ETest.cpp" />
     <ClCompile Include="..\SampleOrderSystem\src\Storage\PathUtil.cpp" />
     <ClCompile Include="..\SampleOrderSystem\src\Repository\SampleRepository.cpp" />
     <ClCompile Include="..\SampleOrderSystem\src\Repository\OrderRepository.cpp" />
@@ -168,6 +170,7 @@
     <ClCompile Include="..\SampleOrderSystem\src\Console\ProductionMenu.cpp" />
     <ClCompile Include="..\SampleOrderSystem\src\Console\ShippingMenu.cpp" />
     <ClCompile Include="..\SampleOrderSystem\src\Console\MonitoringMenu.cpp" />
+    <ClCompile Include="..\SampleOrderSystem\src\Tool\DummyDataSeedGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tests\testing.h" />

@@ -98,6 +98,15 @@
     <ClCompile Include="..\SampleOrderSystem\src\Console\MonitoringMenu.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="tests\DummyDataSeedGeneratorTest.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\DummyDataGeneratorE2ETest.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SampleOrderSystem\src\Tool\DummyDataSeedGenerator.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tests\testing.h">
