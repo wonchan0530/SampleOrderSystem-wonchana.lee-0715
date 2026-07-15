@@ -14,6 +14,26 @@ TEST(consoleIO_readLineReturnsInputAndEchoesPrompt) {
     EXPECT_TRUE(out.str().find("Name > ") != std::string::npos);
 }
 
+TEST(consoleIO_readLineStripsTrailingCarriageReturn) {
+    // A CRLF-terminated source (redirected file/pipe input on Windows, e.g.
+    // scripted console sessions) leaves a trailing '\r' after getline splits
+    // on '\n' only. Found via Phase 8's E2E scenario script failing every
+    // readInt call when its scripted input was piped through a temp file.
+    std::istringstream in("42\r\n");
+    std::ostringstream out;
+    ConsoleIO io(in, out);
+
+    EXPECT_EQ(io.readLine("Num > "), "42");
+}
+
+TEST(consoleIO_readIntAcceptsCarriageReturnTerminatedInput) {
+    std::istringstream in("42\r\n");
+    std::ostringstream out;
+    ConsoleIO io(in, out);
+
+    EXPECT_EQ(io.readInt("Num > "), 42);
+}
+
 TEST(consoleIO_readLineThrowsEofExceptionAtStreamEnd) {
     std::istringstream in("");
     std::ostringstream out;

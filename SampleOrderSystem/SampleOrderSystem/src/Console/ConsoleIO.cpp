@@ -41,6 +41,12 @@ std::string ConsoleIO::readLine(const std::string& prompt) {
     if (!std::getline(in_, line)) {
         throw EofException();
     }
+    // getline only splits on '\n', so a CRLF-terminated source (a redirected
+    // file/pipe on Windows, e.g. scripted console input) leaves a trailing
+    // '\r' that would otherwise break strict numeric parsing below.
+    if (!line.empty() && line.back() == '\r') {
+        line.pop_back();
+    }
     return line;
 }
 
