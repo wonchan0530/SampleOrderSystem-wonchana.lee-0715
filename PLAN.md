@@ -2,6 +2,23 @@
 
 > 참고 문서: [`PRD.md`](PRD.md), [`CLAUDE.md`](CLAUDE.md), `docs/01~06-*.md`(메뉴별 요구사항), `poc/01~04-*.md`(POC 학습노트)
 
+## 진행 현황 — Phase 0~9 전체 완료
+
+| Phase | 내용 | 설계 문서 | 상태 |
+|---|---|---|---|
+| 0 | 프로젝트 기반 준비(폴더 구조, JSON vendoring, 테스트 프로젝트, Harness) | [`design/phase0-design.md`](design/phase0-design.md) | 완료 |
+| 1 | Model/Storage/Repository 계층 | [`design/phase1-design.md`](design/phase1-design.md) | 완료 |
+| 2 | 시료관리 콘솔 메뉴 | [`design/phase2-design.md`](design/phase2-design.md) | 완료 |
+| 3 | 주문 접수/승인/거절 + 재고 정책 | [`design/phase3-design.md`](design/phase3-design.md) | 완료 |
+| 4 | 생산라인(벽시계 완료 판정, 큐 체인) | [`design/phase4-design.md`](design/phase4-design.md) | 완료 |
+| 5 | 출고처리 | [`design/phase5-design.md`](design/phase5-design.md) | 완료 |
+| 6 | 모니터링 + 메인메뉴 최종 통합 | [`design/phase6-design.md`](design/phase6-design.md) | 완료 |
+| 7 | Dummy 데이터 생성 도구 | [`design/phase7-design.md`](design/phase7-design.md) | 완료 |
+| 8 | 통합 테스트/E2E 시나리오 (Harness에 편입) | [`design/phase8-design.md`](design/phase8-design.md) | 완료 |
+| 9 | Clean Code 리뷰 및 문서/커밋 마무리 | [`design/phase9-design.md`](design/phase9-design.md) | 완료 |
+
+각 설계 문서 상단에 실제 구현 시 승인된 설계와 달라진 점(있는 경우)이 기록되어 있다.
+
 ## 개발 원칙
 
 - **빌드는 MSBuild/Visual Studio(vcxproj)만 사용한다.** 참고 POC들은 CMake/Ninja 기반이므로, 각 Phase에서 "설계/클래스 구조는 재사용하되 빌드 설정은 vcxproj에 새로 반영"한다.

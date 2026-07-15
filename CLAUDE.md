@@ -4,19 +4,32 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 저장소 현재 상태
 
-`docs/[CRA_AI] Day3_개인과제_반도체시료관리.pdf` (4~26페이지)가 요구사항 명세(PRD) 역할을 하며, 이를 정리한 `PRD.md`가 루트에 있다. 개발은 `PLAN.md`에 정의된 Phase 단위로 진행 중이며, 각 Phase의 설계 문서는 `design/phaseN-*.md`에 있다. Phase 0(프로젝트 기반 준비)과 Phase 1(Model/Storage/Repository 계층: `Sample`/`Order`, `JsonFileStore<T>`, `PathUtil`, `SampleRepository`/`OrderRepository`)까지 완료된 상태다. 콘솔 메뉴/Controller 연결은 아직 없다(Phase 2부터).
+`docs/[CRA_AI] Day3_개인과제_반도체시료관리.pdf` (4~26페이지)가 요구사항 명세(PRD) 역할을 하며, 이를 정리한 `PRD.md`가 루트에 있다. 개발은 `PLAN.md`에 정의된 Phase 단위로 진행했으며, 각 Phase의 설계 문서는 `design/phaseN-*.md`에 있다. **Phase 0~9 전체가 완료**된 상태다 — 기능 명세(메뉴 5개), 통합 E2E 시나리오, Clean Code 정리까지 마쳤다. 남은 신규 개발 없이 유지보수 단계다.
+
+### 아키텍처 요약
+
+`SampleOrderSystem/SampleOrderSystem/` 아래 계층형 구조:
+- **Model** (`include/Model`): `Sample`, `Order`(+`OrderStatus`), `ProductionJob` — 순수 데이터 구조체 + nlohmann ADL `to_json`/`from_json`
+- **Storage** (`include/Storage`): `JsonFileStore<T>`(범용 파일 영속성, 파일없음/손상 파일 방어), `PathUtil`(실행파일 기준 `data/` 경로)
+- **Repository** (`include/Repository`): `SampleRepository`, `OrderRepository`, `ProductionQueueRepository` — CRUD·검증·상태 전이 합법성만 담당(정책 판단 없음), `NextIdCalculator.h`로 자동 채번 로직 공유
+- **Controller** (`include/Controller`): `OrderController`(재고 정책+승인/거절/출고), `ProductionController`(벽시계 완료 판정+체인 완료), `MonitoringController`(Sample+Order 조합 집계) — Repository 조합이 필요해지는 시점에만 도입(시료관리는 Controller 없음)
+- **Console** (`include/Console`): `ConsoleIO`(스트림 주입 가능, EOF는 예외로), `MenuRunner.h`(5개 메뉴가 공유하는 `runMenu` 헬퍼), `SampleMenu`/`OrderMenu`/`ProductionMenu`/`ShippingMenu`/`MonitoringMenu`
+- `main.cpp`: Composition Root. 메인 루프 최상단에서 `ProductionController::processCompletions()`를 매 반복 호출(재시작 시점과 메뉴 진입 시점을 한 곳에서 동시에 만족)
+
+세 번째 프로젝트 `SampleOrderSystemDummyDataGenerator`는 위 Model/Storage/Repository/Controller 소스를 그대로 재사용하는 별도 실행파일(테스트 프로젝트와 동일 패턴)이다.
 
 ## 빌드 환경 (MSBuild / Visual Studio)
 
 - **빌드 시스템은 MSBuild/Visual Studio만 사용한다. CMake 등 크로스플랫폼 빌드 시스템은 도입하지 않는다.**
-- 솔루션: `SampleOrderSystem/SampleOrderSystem.slnx`, 프로젝트 2개:
+- 솔루션: `SampleOrderSystem/SampleOrderSystem.slnx`, 프로젝트 3개:
   - `SampleOrderSystem/SampleOrderSystem/SampleOrderSystem.vcxproj` — 앱 본체(`src/main.cpp`가 Composition Root)
-  - `SampleOrderSystem/SampleOrderSystemTests/SampleOrderSystemTests.vcxproj` — 테스트 전용(자체 `tests/testing.h` 하네스, 외부 프레임워크 없음)
+  - `SampleOrderSystem/SampleOrderSystemTests/SampleOrderSystemTests.vcxproj` — 테스트 전용(자체 `tests/testing.h` 하네스, 외부 프레임워크 없음). 앱의 `Model/Storage/Repository/Controller/Console` 소스를 상대경로로 함께 컴파일
+  - `SampleOrderSystem/SampleOrderSystemDummyDataGenerator/SampleOrderSystemDummyDataGenerator.vcxproj` — Dummy 데이터 생성 CLI 도구(마찬가지로 앱 소스 재사용)
 - 서드파티: `SampleOrderSystem/SampleOrderSystem/third_party/nlohmann/json.hpp` (단일 헤더 vendoring, 네트워크 의존 없음 — Data_Persistence POC와 동일 버전 3.11.3)
 - 언어/표준: C++20 (`LanguageStandard=stdcpp20`), 콘솔 애플리케이션(`SubSystem=Console`)
 - `PlatformToolset=v145` — 이 툴셋은 **Visual Studio 2026 (버전 18, `C:\Program Files\Microsoft Visual Studio\18\Community`)** 에서만 제공된다. 이 머신에는 VS 2022(17.13, 툴셋 v143)도 설치되어 있지만 v145가 없어 이 프로젝트를 열 수 없으므로, 빌드/실행은 반드시 **VS 2026(18) 인스턴스**를 사용할 것.
-- 구성/플랫폼 조합: `Debug|Win32`, `Release|Win32`, `Debug|x64`, `Release|x64` (두 프로젝트 동일)
-- **Harness**: `scripts/verify.ps1` — 4개 구성 빌드 + `SampleOrderSystemTests.exe`(Debug|x64) 실행을 한 번에 검증. `powershell -ExecutionPolicy Bypass -File scripts\verify.ps1`로 실행. 매 Phase의 "4. Harness 실행" 단계에서 사용.
+- 구성/플랫폼 조합: `Debug|Win32`, `Release|Win32`, `Debug|x64`, `Release|x64` (3개 프로젝트 동일)
+- **Harness**: `scripts/verify.ps1` — (1) 4개 구성 빌드, (2) `SampleOrderSystemTests.exe`(Debug|x64) 유닛 테스트, (3) `scripts/scenario_test.ps1`(실제 `SampleOrderSystem.exe`를 콘솔 입력으로 처음부터 끝까지 조작하는 E2E 시나리오, 벽시계 재시작 포함) — 세 단계를 한 번에 검증. `powershell -ExecutionPolicy Bypass -File scripts\verify.ps1`로 실행. 매 Phase의 "4. Harness 실행" 단계에서 사용.
 - CLI 빌드 명령 (PowerShell, 단일 구성만 빌드할 때):
   ```powershell
   & "C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Current\Bin\MSBuild.exe" `
